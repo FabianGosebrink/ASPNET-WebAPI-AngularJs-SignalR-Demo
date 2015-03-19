@@ -1,0 +1,104 @@
+﻿<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">TechDays...Yay!</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+    <toaster-container> </toaster-container>
+    <div class="starter-template">
+        <div class="jumbotron">
+
+            <div class="row">
+                
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow="{{cpuUsage}}" aria-valuemin="0" aria-valuemax="100"
+                         ng-style="{width : ( cpuUsage + '%' ) }">
+                        {{cpuUsage}}%
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <form class="form-inline" data-ng-submit="addPerson()" name="newPersonForm">
+                        <div class="form-group">
+                            <label class="sr-only" for="exampleInputEmail3">Email address</label>
+                            <input type="name" class="form-control"
+                                   id="name" name="name" placeholder="Enter name"
+                                   data-ng-model="newPerson.Name" data-ng-minlength="2" required>
+                            <span class="error" data-ng-show="newPersonForm.name.$error.required">*</span>
+                            <span class="error" data-ng-show="newPersonForm.name.$error.minlength"><br />Minimum 2 Characters</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="exampleInputPassword3">Password</label>
+                            <input type="age" class="form-control" id="age" name="age" placeholder="Enter age" data-ng-model="newPerson.Age" required>
+                            <span class="error" data-ng-show="newPersonForm.age.$error.required">*</span>
+                        </div>
+
+                        <button type="submit" class="btn btn-default" data-ng-disabled="newPersonForm.$invalid">Add person</button>
+                    </form>
+                </div>
+            </div>
+            <br />
+            <span>
+                <label>Person to add will be: <i>{{newPerson.Name}}</i> with an age of <i>{{newPerson.Age}}</i></label>
+            </span>
+            <br />
+            <table class="table table-striped resultArea" ng-cloak>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th class="text-right">
+                        Age
+                    </th>
+                    <th class="text-right">
+                        Actions
+                    </th>
+                </tr>
+                <tr data-ng-repeat="person in peopleService.allPeople">
+                    <td class="text-left">
+                        {{person.Name}}
+                    </td>
+                    <td class="text-right">
+                        {{person.Age}}
+                    </td>
+                    <td class="text-right">
+                        <button data-ng-click="deletePerson(person)" class="btn btn-primary btn-xs">Delete</button>
+                    </td>
+                </tr>
+
+            </table>
+
+            <div class="row text-left">
+                <div class="col-md-12">
+                    <form class="form-inline" name="newChatForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Chat with me!" data-ng-model="messageText" data-ng-minlength="1">
+                            <button class="btn btn-default" data-ng-disabled="newChatForm.$invalid" data-ng-click="sendChat()">Send</button>
+                            <br />
+                            <br />
+                            <ul>
+                                <li ng-repeat="message in chatMessages track by $index">{{ message }}</li>
+                            </ul>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /.container -->
