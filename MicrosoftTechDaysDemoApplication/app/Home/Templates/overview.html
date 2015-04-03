@@ -35,16 +35,16 @@
                 <div class="col-md-12">
                     <form class="form-inline" data-ng-submit="addPerson()" name="newPersonForm">
                         <div class="form-group">
-                            <label class="sr-only" for="exampleInputEmail3">Email address</label>
-                            <input type="name" class="form-control"
+                            <label class="sr-only" for="name">Name</label>
+                            <input type="text" class="form-control"
                                    id="name" name="name" placeholder="Enter name"
                                    data-ng-model="newPerson.Name" data-ng-minlength="2" required>
                             <span class="error" data-ng-show="newPersonForm.name.$error.required">*</span>
                             <span class="error" data-ng-show="newPersonForm.name.$error.minlength"><br />Minimum 2 Characters</span>
                         </div>
                         <div class="form-group">
-                            <label class="sr-only" for="exampleInputPassword3">Password</label>
-                            <input type="age" class="form-control" id="age" name="age" placeholder="Enter age" data-ng-model="newPerson.Age" required>
+                            <label class="sr-only" for="age">Age</label>
+                            <input type="text" class="form-control" id="age" name="age" placeholder="Enter age" data-ng-model="newPerson.Age" required>
                             <span class="error" data-ng-show="newPersonForm.age.$error.required">*</span>
                         </div>
 
