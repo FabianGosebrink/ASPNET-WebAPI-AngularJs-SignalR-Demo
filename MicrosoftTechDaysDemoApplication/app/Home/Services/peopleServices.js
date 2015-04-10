@@ -1,15 +1,15 @@
 ﻿'use strict';
 homeModule.factory("home.services.peopleService", [
-    "$http", "$q", "common.services.arrayHelper", function ($http, $q, arrayHelper) {
+    "$http", "$q", function ($http, $q) {
 
-        var urlPrefix = '/api/home/';
+        var url = '/api/home/';
         var _allPeople = [];
 
         var _getAllPeople = function () {
 
             var deferred = $q.defer();
 
-            $http.get(urlPrefix + "GetAllMyPersons")
+            $http.get(url)
                 .then(function (result) {
                     // Successful
                     angular.copy(result.data, _allPeople);
@@ -27,11 +27,10 @@ homeModule.factory("home.services.peopleService", [
 
             var deferred = $q.defer();
 
-            $http.post(urlPrefix + "AddPerson", newPersonToAdd)
+            $http.post(url, newPersonToAdd)
                 .then(function (result) {
                     // Successful
-                    //var newlyCreatedPerson = result.data;
-                    //arrayHelper.addItemToArray(_allPeople, newlyCreatedPerson);
+                    // SignalR is doing the adding-Stuff
                     deferred.resolve(result);
                 },
                     function () {
@@ -46,10 +45,10 @@ homeModule.factory("home.services.peopleService", [
 
             var deferred = $q.defer();
 
-            $http.post(urlPrefix + "DeletePerson", personToDelete)
+            $http.delete(url + personToDelete.Id)
                 .then(function (result) {
                     // Successful
-                    //arrayHelper.removeFromArray(_allPeople, result.data);
+                    // SignalR is doing the removing-Stuff
                     deferred.resolve(result);
                 },
                     function () {

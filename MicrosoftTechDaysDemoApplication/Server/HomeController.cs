@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Web.Http;
 using Microsoft.AspNet.SignalR;
@@ -9,6 +10,7 @@ using MicrosoftTechDaysDemoApplication.Server.Services;
 
 namespace MicrosoftTechDaysDemoApplication.Server
 {
+    [RoutePrefix("api")]
     public class HomeController : ApiController
     {
         private readonly PerformanceCounter _cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
@@ -21,18 +23,17 @@ namespace MicrosoftTechDaysDemoApplication.Server
             CreateTimer();
         }
 
-        [HttpGet]
-        public IHttpActionResult GetAllMyPersons()
+        public IHttpActionResult Get()
         {
             return Ok(Singleton.Instance.Persons);
         }
 
         [HttpPost]
-        public IHttpActionResult AddPerson([FromBody] Person person)
+        public IHttpActionResult Post([FromBody] Person person)
         {
             Person personToAdd = new Person
             {
-                Id = Guid.NewGuid(),
+                Id = new Random().Next(1, 1000),
                 Age = person.Age,
                 Name = person.Name
             };
@@ -44,16 +45,16 @@ namespace MicrosoftTechDaysDemoApplication.Server
             return Ok(personToAdd);
         }
 
-        [HttpPost]
-        public IHttpActionResult DeletePerson([FromBody] Person person)
+        [Route("home/{personId}")]
+        public IHttpActionResult Delete(int personId)
         {
-            Person personToRemove = Singleton.Instance.Persons.First(x => x.Id == person.Id);
+            Person personToRemove = Singleton.Instance.Persons.First(x => x.Id == personId);
 
             Singleton.Instance.Persons.Remove(personToRemove);
 
-            _hubContext.Clients.All.personDeleted(person);
+            _hubContext.Clients.All.personDeleted(personId);
 
-            return Ok(person);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         private void CreateTimer()

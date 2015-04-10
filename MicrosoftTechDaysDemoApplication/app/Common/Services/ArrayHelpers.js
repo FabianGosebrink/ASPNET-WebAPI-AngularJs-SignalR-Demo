@@ -1,8 +1,8 @@
 ﻿app.service("common.services.arrayHelper", [function () {
    
-    function _removeFromArray(array, item) {
+    function _removeFromArray(array, itemId) {
         for (var i = array.length; i--;) {
-            if (array[i].Id === item.Id) {
+            if (array[i].Id === itemId) {
                 array.splice(i, 1);
             }
         }
@@ -20,9 +20,9 @@
         array.splice(0, 0, newItem);
     }
 
-    function _isItemInArray(array, item) {
+    function _isItemInArray(array, itemId) {
         for (var i = 0; i < array.length; i++) {
-            if (array[i].Id === item.Id) {
+            if (array[i].Id === itemId) {
                 return true;
             }
         }

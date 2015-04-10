@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http.Formatting;
 using System.Web.Http;
 using Microsoft.Owin;
@@ -22,10 +21,12 @@ namespace MicrosoftTechDaysDemoApplication.Server
             config.Formatters.Clear();
             config.Formatters.Add(new JsonMediaTypeFormatter());
 
+            config.MapHttpAttributeRoutes();
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { action = RouteParameter.Optional, id = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
             );
 
             app.UseWebApi(config);
@@ -33,8 +34,8 @@ namespace MicrosoftTechDaysDemoApplication.Server
 
             //ADD DUMMY DATA
             IList<Person> persons = new List<Person>();
-            persons.Add(new Person() { Id = Guid.NewGuid(), Age = 34, Name = "Claudio" });
-            persons.Add(new Person() { Id = Guid.NewGuid(), Age = 28, Name = "Fabi" });
+            persons.Add(new Person() { Id = 1, Age = 34, Name = "Claudio" });
+            persons.Add(new Person() { Id = 2, Age = 28, Name = "Fabi" });
 
             Singleton.Instance.Persons = new List<Person>(persons);
         }
