@@ -2,7 +2,7 @@
 homeModule.factory("home.services.peopleService", [
     "$http", "$q", function ($http, $q) {
 
-        var url = '/api/home/';
+        var url = 'http://localhost:63047/api/home/';
         var _allPeople = [];
 
         var _getAllPeople = function () {

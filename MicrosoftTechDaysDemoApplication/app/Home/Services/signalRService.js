@@ -5,7 +5,7 @@
 
         var initialize = function() {
             //Getting the connection object
-            var connection = $.hubConnection();
+            var connection = $.hubConnection("http://localhost:63047/signalr");
            
             //Creating proxy
             this.proxy = connection.createHubProxy('MyHub');
