@@ -10,7 +10,7 @@ using MicrosoftTechDaysDemoApplication.Server.Services;
 
 namespace MicrosoftTechDaysDemoApplication.Server
 {
-    [RoutePrefix("api")]
+    [RoutePrefix("api/home")]
     public class HomeController : ApiController
     {
         private readonly PerformanceCounter _cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
@@ -28,12 +28,36 @@ namespace MicrosoftTechDaysDemoApplication.Server
             return Ok(Singleton.Instance.Persons);
         }
 
-        [HttpPost]
-        public IHttpActionResult Post([FromBody] Person person)
+        [HttpGet]
+        [Route("{id:int}")]
+        public IHttpActionResult GetSingle(int id)
         {
+            Person person = Singleton.Instance.Persons.FirstOrDefault(x => x.Id == id);
+
+            if (person == null)
+            {
+                return NotFound();
+            }
+            
+            return Ok(person);
+        }
+
+        [HttpPost]
+        public IHttpActionResult AddPerson([FromBody] Person person)
+        {
+            if (person == null)
+            {
+                return BadRequest();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             Person personToAdd = new Person
             {
-                Id = new Random().Next(1, 1000),
+                Id = !Singleton.Instance.Persons.Any() ? 1 : Singleton.Instance.Persons.Max(x => x.Id) + 1,
                 Age = person.Age,
                 Name = person.Name
             };
@@ -45,14 +69,20 @@ namespace MicrosoftTechDaysDemoApplication.Server
             return Ok(personToAdd);
         }
 
-        [Route("home/{personId}")]
-        public IHttpActionResult Delete(int personId)
+        [HttpDelete]
+        [Route("{id:int}")]
+        public IHttpActionResult DeletePerson(int id)
         {
-            Person personToRemove = Singleton.Instance.Persons.First(x => x.Id == personId);
+            Person personToRemove = Singleton.Instance.Persons.First(x => x.Id == id);
+
+            if (personToRemove == null)
+            {
+                return NotFound();
+            }
 
             Singleton.Instance.Persons.Remove(personToRemove);
 
-            _hubContext.Clients.All.personDeleted(personId);
+            _hubContext.Clients.All.personDeleted(personToRemove);
 
             return StatusCode(HttpStatusCode.NoContent);
         }

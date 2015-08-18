@@ -1,4 +1,6 @@
-﻿homeModule.factory("mysignalRservice", [
+﻿(function () {
+    'use strict';
+    angular.module('home.homeModule').factory("mysignalRservice", [
     "$rootScope", function ($rootScope) {
 
         var proxy = null;
@@ -47,4 +49,5 @@
             sendMessage: sendMessage
         };
     }
-]);
+    ]);
+})();

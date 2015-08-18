@@ -1,5 +1,9 @@
-﻿contactModule.controller('contact.controllers.contactController', function ($scope) {
-   
+﻿(function () {
+    'use strict';
+
+    angular.module('contact.contactModule').controller('contact.controllers.contactController', function ($scope) {
 
 
-});
+    });
+
+})();

@@ -1,69 +1,76 @@
-﻿'use strict';
-homeModule.factory("home.services.peopleService", [
-    "$http", "$q", function ($http, $q) {
+﻿(function () {
+    'use strict';
+    angular.module('home.homeModule').factory("home.services.peopleService", [
+        "$http", "$q", "common.services.arrayHelper", function ($http, $q, arrayHelper) {
 
-        var url = 'http://localhost:63047/api/home/';
-        var _allPeople = [];
+            var url = 'http://localhost:63047/api/home/';
 
-        var _getAllPeople = function () {
+            var _allPeople = [];
 
-            var deferred = $q.defer();
+            var _getAllPeople = function () {
 
-            $http.get(url)
-                .then(function (result) {
-                    // Successful
-                    angular.copy(result.data, _allPeople);
-                    deferred.resolve(result);
-                },
-                    function () {
-                        // Error
-                        deferred.reject();
-                    });
+                var deferred = $q.defer();
 
-            return deferred.promise;
-        };
+                $http.get(url)
+                    .then(function (result) {
+                        // Successful
+                        angular.copy(result.data, _allPeople);
+                        deferred.resolve(result);
+                    },
+                        function () {
+                            // Error
+                            deferred.reject();
+                        });
 
-        var _addPerson = function (newPersonToAdd) {
+                return deferred.promise;
+            };
 
-            var deferred = $q.defer();
+            var _addPerson = function (newPersonToAdd) {
 
-            $http.post(url, newPersonToAdd)
-                .then(function (result) {
-                    // Successful
-                    // SignalR is doing the adding-Stuff
-                    deferred.resolve(result);
-                },
-                    function () {
-                        // Error
-                        deferred.reject();
-                    });
+                var deferred = $q.defer();
 
-            return deferred.promise;
-        };
+                $http.post(url, newPersonToAdd)
+                    .then(function (result) {
+                        // Successful
+                        //arrayHelper.addItemToArray(_allPeople, result.data);
+                        deferred.resolve(result);
+                    },
+                        function (result) {
+                            // Error
+                            deferred.reject(result);
+                        });
 
-        var _deletePerson = function (personToDelete) {
+                return deferred.promise;
+            };
 
-            var deferred = $q.defer();
+            var _deletePerson = function (personToDelete) {
 
-            $http.delete(url + personToDelete.Id)
-                .then(function (result) {
-                    // Successful
-                    // SignalR is doing the removing-Stuff
-                    deferred.resolve(result);
-                },
-                    function () {
-                        // Error
-                        deferred.reject();
-                    });
+                var deferred = $q.defer();
 
-            return deferred.promise;
-        };
+                $http.delete(url + personToDelete.Id)
+                    .then(function (result) {
+                        // Successful
+                        for (var i = _allPeople.length; i--;) {
+                            if (_allPeople[i].Id === personToDelete.Id) {
+                                _allPeople.splice(i, 1);
+                            }
+                        }
+                        deferred.resolve(result);
+                    },
+                        function () {
+                            // Error
+                            deferred.reject();
+                        });
 
-        return {
-            getAllPeople: _getAllPeople,
-            addPerson: _addPerson,
-            deletePerson: _deletePerson,
-            allPeople: _allPeople
+                return deferred.promise;
+            };
+
+            return {
+                getAllPeople: _getAllPeople,
+                addPerson: _addPerson,
+                deletePerson: _deletePerson,
+                allPeople: _allPeople
+            }
         }
-    }
-]);
+    ]);
+})();

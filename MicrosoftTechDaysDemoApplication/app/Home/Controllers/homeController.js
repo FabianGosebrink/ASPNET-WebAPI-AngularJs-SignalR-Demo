@@ -1,88 +1,100 @@
-﻿"use strict";
-homeModule.controller('home.controllers.homeController', [
-    '$scope', 'home.services.peopleService', 'toaster', 'cfpLoadingBar', 'mysignalRservice', 'common.services.arrayHelper',
-    function ($scope, peopleService, toaster, cfpLoadingBar, mysignalRservice, arrayHelper) {
+﻿(function () {
+    "use strict";
+    angular.module('home.homeModule').controller('home.controllers.homeController', [
+        '$scope', 'home.services.peopleService', 'toastr', 'cfpLoadingBar', 'mysignalRservice', 'common.services.arrayHelper',
+        function ($scope, peopleService, toastr, cfpLoadingBar, mysignalRservice, arrayHelper) {
 
-        $scope.chatMessages = [];
-        $scope.messageText = "";
-        $scope.date = "";
-        $scope.peopleService = peopleService;
+            var vm = this;
 
-        mysignalRservice.initialize();
+            vm.peopleService = peopleService;
+            vm.newPerson = {};
 
-        var getPeople = function () {
-            cfpLoadingBar.start();
+            vm.chatMessages = [];
+            vm.messageText = "";
+            vm.date = "";
 
-            peopleService.getAllPeople().then(
-                function () {
-                    //Success
-                },
-                function () {
-                    //Error
-                    toaster.pop("Error", "Error", "Error");
-                });
+            mysignalRservice.initialize();
 
-            cfpLoadingBar.complete();
-        };
 
-        $scope.$parent.$on("personAdded", function (e, data) {
-            if (!arrayHelper.isItemInArray(peopleService.allPeople, data)) {
-                arrayHelper.addItemToArray(peopleService.allPeople, data);
-            }
-        });
 
-        $scope.$parent.$on("personDeleted", function (e, data) {
-            if (arrayHelper.isItemInArray(peopleService.allPeople, data)) {
-                arrayHelper.removeFromArray(peopleService.allPeople, data);
-            }
-        });
+            var getPeople = function () {
+                cfpLoadingBar.start();
 
-        $scope.$parent.$on("addMessage", function (e, data) {
-            $scope.$apply($scope.chatMessages.push(data));
-        });
-
-        $scope.$parent.$on("newCpuValue", function (e, data) {
-            $scope.$apply($scope.cpuUsage = data);
-        });
-
-        $scope.newPerson = {};
-
-        var _addPerson = function () {
-            peopleService.addPerson($scope.newPerson)
-                .then(
+                peopleService.getAllPeople().then(
                     function () {
-                        $scope.newPerson = null;
-                        toaster.pop("success", "Success", "Person added");
+                        //Success
                     },
                     function () {
                         //Error
-                        toaster.pop("Error", "Error", "Error while adding person");
-                    }
-                );
-        };
-
-        var _deletePerson = function (personToDelete) {
-            peopleService.deletePerson(personToDelete)
-                .then(
-                    function () {
-                        toaster.pop("success", "Success", "Person deleted");
-                    },
-                    function () {
-                        //Error
-                        toaster.pop("Error", "Error", "Error while removing person");
+                        toastr.error("An Error occured", "Error");
+                    }).then(function () {
+                        cfpLoadingBar.complete();
                     });
-        };
+            };
 
-        var _sendChat = function () {
-            mysignalRservice.sendMessage($scope.messageText);
-            $scope.messageText = "";
-        };
+            $scope.$parent.$on("personAdded", function (e, data) {
+                if (!arrayHelper.isItemInArray(peopleService.allPeople, data)) {
+                    arrayHelper.addItemToArray(peopleService.allPeople, data);
+                }
+            });
 
-        getPeople();
+            $scope.$parent.$on("personDeleted", function (e, data) {
+                if (arrayHelper.isItemInArray(peopleService.allPeople, data)) {
+                    arrayHelper.removeFromArray(peopleService.allPeople, data);
+                }
+            });
 
-        $scope.addPerson = _addPerson;
-        $scope.deletePerson = _deletePerson;
-        $scope.sendChat = _sendChat;
-    }
-]);
+            $scope.$parent.$on("addMessage", function (e, data) {
+                $scope.$apply(vm.chatMessages.push(data));
+            });
 
+            $scope.$parent.$on("newCpuValue", function (e, data) {
+                $scope.$apply(vm.cpuUsage = data);
+            });
+
+            var _addPerson = function () {
+                peopleService.addPerson(vm.newPerson)
+                    .then(
+                        function () {
+                            vm.newPerson = null;
+                            toastr.success('Person added', 'Success!');
+                        },
+                        function (response) {
+                            //Error
+                            var errors = [];
+                            for (var key in response.data.ModelState) {
+                                for (var i = 0; i < response.data.ModelState[key].length; i++) {
+                                    errors += response.data.ModelState[key][i] + "\r\n";
+                                }
+                            }
+                            toastr.error(errors, "Error");
+                        }
+                    );
+            };
+
+            var _deletePerson = function (personToDelete) {
+                peopleService.deletePerson(personToDelete)
+                    .then(
+                        function () {
+                            toastr.success('Person deleted', 'Success!');
+                        },
+                        function () {
+                            //Error
+                            toastr.error("An Error occured", "Error");
+                        });
+            };
+
+            var _sendChat = function () {
+                mysignalRservice.sendMessage(vm.messageText);
+                vm.messageText = "";
+            };
+
+            getPeople();
+
+            vm.addPerson = _addPerson;
+            vm.deletePerson = _deletePerson;
+            vm.sendChat = _sendChat;
+        }
+    ]);
+
+})();
