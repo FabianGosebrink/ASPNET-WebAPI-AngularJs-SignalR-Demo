@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.SignalR;
 
-namespace MicrosoftTechDaysDemoApplication.Server
+namespace AngularJsDemoAppSignalR.Server
 {
     public class MyHub : Hub
     {

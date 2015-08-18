@@ -4,11 +4,11 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Web.Http;
+using AngularJsDemoAppSignalR.Server.Models;
+using AngularJsDemoAppSignalR.Server.Services;
 using Microsoft.AspNet.SignalR;
-using MicrosoftTechDaysDemoApplication.Server.Models;
-using MicrosoftTechDaysDemoApplication.Server.Services;
 
-namespace MicrosoftTechDaysDemoApplication.Server
+namespace AngularJsDemoAppSignalR.Server
 {
     [RoutePrefix("api/home")]
     public class HomeController : ApiController

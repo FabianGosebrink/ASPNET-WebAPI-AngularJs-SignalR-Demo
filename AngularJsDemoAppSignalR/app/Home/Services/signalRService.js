@@ -1,13 +1,13 @@
 ﻿(function () {
     'use strict';
     angular.module('home.homeModule').factory("mysignalRservice", [
-    "$rootScope", function ($rootScope) {
+    "$rootScope", "appSettings", function ($rootScope, appSettings) {
 
         var proxy = null;
 
         var initialize = function() {
             //Getting the connection object
-            var connection = $.hubConnection("http://localhost:63047/signalr");
+            var connection = $.hubConnection(appSettings.serverPath + "/signalr");
            
             //Creating proxy
             this.proxy = connection.createHubProxy('MyHub');

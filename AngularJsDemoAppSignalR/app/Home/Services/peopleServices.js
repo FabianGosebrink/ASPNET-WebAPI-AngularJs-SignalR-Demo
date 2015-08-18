@@ -1,9 +1,9 @@
 ﻿(function () {
     'use strict';
     angular.module('home.homeModule').factory("home.services.peopleService", [
-        "$http", "$q", "common.services.arrayHelper", function ($http, $q, arrayHelper) {
+        "$http", "$q", "appSettings", function ($http, $q, appSettings) {
 
-            var url = 'http://localhost:63047/api/home/';
+            var url = appSettings.serverPath + "/api/home/";
 
             var _allPeople = [];
 

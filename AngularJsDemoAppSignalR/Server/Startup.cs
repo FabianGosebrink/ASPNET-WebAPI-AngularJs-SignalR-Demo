@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http.Formatting;
+using System.Threading.Tasks;
 using System.Web.Http;
+using AngularJsDemoAppSignalR.Server.Models;
+using AngularJsDemoAppSignalR.Server.Services;
 using Microsoft.Owin;
-using MicrosoftTechDaysDemoApplication.Server.Models;
-using MicrosoftTechDaysDemoApplication.Server.Services;
 using Owin;
 
-[assembly: OwinStartup(typeof(MicrosoftTechDaysDemoApplication.Server.Startup))]
+[assembly: OwinStartup(typeof(AngularJsDemoAppSignalR.Server.Startup))]
 
-namespace MicrosoftTechDaysDemoApplication.Server
+namespace AngularJsDemoAppSignalR.Server
 {
     public class Startup
     {

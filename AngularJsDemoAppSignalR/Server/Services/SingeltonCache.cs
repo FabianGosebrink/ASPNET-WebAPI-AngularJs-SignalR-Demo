@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using MicrosoftTechDaysDemoApplication.Server.Models;
+using AngularJsDemoAppSignalR.Server.Models;
 
-namespace MicrosoftTechDaysDemoApplication.Server.Services
+namespace AngularJsDemoAppSignalR.Server.Services
 {
     public sealed class Singleton
     {

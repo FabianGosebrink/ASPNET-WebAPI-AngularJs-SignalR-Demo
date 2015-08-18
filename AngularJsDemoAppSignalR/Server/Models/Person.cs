@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MicrosoftTechDaysDemoApplication.Server.Models
+namespace AngularJsDemoAppSignalR.Server.Models
 {
     public class Person
     {

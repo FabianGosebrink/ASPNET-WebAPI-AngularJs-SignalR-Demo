@@ -15,8 +15,13 @@
 
         'home.homeModule',
         'contact.contactModule'
-    ]).config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
-        cfpLoadingBarProvider.includeSpinner = false;
-    }]);
+    ])
+        .config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
+            cfpLoadingBarProvider.includeSpinner = false;
+        }])
+        .constant("appSettings",
+        {
+            serverPath: "http://localhost:63047"
+        });
 }
 ());
