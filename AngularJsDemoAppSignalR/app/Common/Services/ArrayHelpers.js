@@ -1,9 +1,32 @@
-﻿
+﻿(function () {
+    "use strict";
 
-(function () {
-    'use strict';
+    angular
+        .module("app.common")
+        .factory("common.services.arrayHelper", arrayHelper);
 
-    angular.module('AngularJsDemoApp').service("common.services.arrayHelper", [function () {
+    arrayHelper.$inject = [];
+
+    /* @ngInject */
+    function arrayHelper() {
+
+        var service = {
+            removeFromArray: _removeFromArray,
+            replaceItemInArray: _replaceItemInArray,
+            isItemInArray: _isItemInArray,
+            addItemToArray: _addItemToArray
+        };
+
+        return service;
+
+        function _isItemInArray(array, item) {
+            for (var i = 0; i < array.length; i++) {
+                if (array[i].Id === item.Id) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         function _removeFromArray(array, item) {
             for (var i = array.length; i--;) {
@@ -24,21 +47,5 @@
         function _addItemToArray(array, newItem) {
             array.splice(0, 0, newItem);
         }
-
-        function _isItemInArray(array, item) {
-            for (var i = 0; i < array.length; i++) {
-                if (array[i].Id === item.Id) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        return {
-            removeFromArray: _removeFromArray,
-            replaceItemInArray: _replaceItemInArray,
-            isItemInArray: _isItemInArray,
-            addItemToArray: _addItemToArray
-        };
-    }]);
+    }
 })();

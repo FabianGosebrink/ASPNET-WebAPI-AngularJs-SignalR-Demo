@@ -1,9 +1,12 @@
 ﻿(function () {
-    'use strict';
+    "use strict";
+    angular
+        .module("contact.contactModule")
+        .controller("contact.controllers.contactController", contactController);
 
-    angular.module('contact.contactModule').controller('contact.controllers.contactController', function ($scope) {
+    contactController.$inject = [];
+    /* @ngInject */
+    function contactController() {
 
-
-    });
-
+    }
 })();

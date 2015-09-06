@@ -38,30 +38,33 @@
 
     <div data-ng-view></div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="libs/jquery/dist/jquery.min.js"></script>
-    <script src="libs/angular/angular.min.js"></script>
-    <script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="libs/angular-route/angular-route.min.js"></script>
-    <script src="libs/angular-resource/angular-resource.min.js"></script>
-    <script src="libs/angular-animate/angular-animate.min.js"></script>
-    <script src="libs/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="libs/angular-bootstrap/ui-bootstrap.min.js"></script>
-    <script src="libs/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+   
+    
+    <!-- bower:js -->
+    <script src="libs/jquery/dist/jquery.js"></script>
+    <script src="libs/angular/angular.js"></script>
+    <script src="libs/angular-animate/angular-animate.js"></script>
+    <script src="libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="libs/angular-loading-bar/src/loading-bar.js"></script>
+    <script src="libs/angular-resource/angular-resource.js"></script>
+    <script src="libs/angular-route/angular-route.js"></script>
+    <script src="libs/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="libs/bootstrap/dist/js/bootstrap.js"></script>
     <script src="libs/signalr/jquery.signalR.min.js"></script>
+    <!-- endbower -->
 
-    <script type="text/javascript" src="app/application.js"></script>
+    <!-- inject:js -->
+    <script src="app/application.js"></script>
+    <script src="app/Common/commonModule.js"></script>
+    <script src="app/Home/homeModule.js"></script>
+    <script src="app/Contact/contactModule.js"></script>
+    <script src="app/Common/Services/ArrayHelpers.js"></script>
+    <script src="app/Home/Services/signalRService.js"></script>
+    <script src="app/Home/Controllers/homeController.js"></script>
+    <script src="app/Home/Services/peopleServices.js"></script>
+    <script src="app/Contact/Controllers/contactController.js"></script>
+    <!-- endinject -->
 
-    <script type="text/javascript" src="app/Home/HomeModule.js"></script>
-    <script type="text/javascript" src="app/Common/Services/ArrayHelpers.js"></script>
-    <script type="text/javascript" src="app/Home/Controllers/homeController.js"></script>
-    <script type="text/javascript" src="app/Home/Services/peopleServices.js"></script>
-    <script type="text/javascript" src="app/Home/Services/signalRService.js"></script>
-    <script type="text/javascript" src="app/Contact/contactModule.js"></script>
-    <script type="text/javascript" src="app/Contact/controllers/contactController.js"></script>
 
 </body>
 </html>

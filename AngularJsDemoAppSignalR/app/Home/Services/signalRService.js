@@ -1,14 +1,20 @@
 ﻿(function () {
-    'use strict';
-    angular.module('home.homeModule').factory("mysignalRservice", [
-    "$rootScope", "appSettings", function ($rootScope, appSettings) {
+    "use strict";
 
+    angular
+        .module("home.homeModule")
+        .factory("mysignalRservice", mysignalRservice);
+
+    mysignalRservice.$inject = ["$rootScope", "appSettings"];
+
+    /* @ngInject */
+    function mysignalRservice($rootScope, appSettings) {
         var proxy = null;
 
-        var initialize = function() {
+        var initialize = function () {
             //Getting the connection object
             var connection = $.hubConnection(appSettings.serverPath + "/signalr");
-           
+
             //Creating proxy
             this.proxy = connection.createHubProxy('MyHub');
 
@@ -23,7 +29,7 @@
 
             this.proxy.on('addMessage', function (data) {
                 $rootScope.$emit("addMessage", data);
-            }); 
+            });
 
             this.proxy.on('newCpuValue', function (data) {
                 $rootScope.$emit("newCpuValue", data);
@@ -31,10 +37,10 @@
 
 
             //Starting connection
-            connection.start().done(function() {
-                    console.log('Now connected, connection ID=' + connection.id);
-                })
-                .fail(function() {
+            connection.start().done(function () {
+                console.log('Now connected, connection ID=' + connection.id);
+            })
+                .fail(function () {
                     console.log('Could not connect');
                 });
         };
@@ -49,5 +55,4 @@
             sendMessage: sendMessage
         };
     }
-    ]);
 })();

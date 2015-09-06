@@ -1,8 +1,14 @@
 ﻿(function () {
     "use strict";
-    angular.module('home.homeModule').controller('home.controllers.homeController', [
-        '$scope', 'home.services.peopleService', 'toastr', 'cfpLoadingBar', 'mysignalRservice', 'common.services.arrayHelper',
-        function ($scope, peopleService, toastr, cfpLoadingBar, mysignalRservice, arrayHelper) {
+
+    angular
+           .module("home.homeModule")
+           .controller("home.controllers.homeController", HomeController);
+
+    HomeController.$inject = ['$scope', 'home.services.peopleService', 'toastr', 'cfpLoadingBar', 'mysignalRservice', 'common.services.arrayHelper'];
+
+
+    function HomeController($scope, peopleService, toastr, cfpLoadingBar, mysignalRservice, arrayHelper) {
 
             var vm = this;
 
@@ -94,7 +100,5 @@
             vm.addPerson = _addPerson;
             vm.deletePerson = _deletePerson;
             vm.sendChat = _sendChat;
-        }
-    ]);
-
+    }
 })();

@@ -1,76 +1,82 @@
 ﻿(function () {
-    'use strict';
-    angular.module('home.homeModule').factory("home.services.peopleService", [
-        "$http", "$q", "appSettings", function ($http, $q, appSettings) {
+    "use strict";
 
-            var url = appSettings.serverPath + "/api/home/";
+    angular
+        .module("home.homeModule")
+        .factory("home.services.peopleService", peopleService);
 
-            var _allPeople = [];
+    peopleService.$inject = ["$http", "$q", "common.services.arrayHelper"];
 
-            var _getAllPeople = function () {
+    /* @ngInject */
+    function peopleService($http, $q, arrayHelper) {
 
-                var deferred = $q.defer();
+        var url = "api/home/";
 
-                $http.get(url)
-                    .then(function (result) {
-                        // Successful
-                        angular.copy(result.data, _allPeople);
-                        deferred.resolve(result);
-                    },
-                        function () {
-                            // Error
-                            deferred.reject();
-                        });
+        var _allPeople = [];
 
-                return deferred.promise;
-            };
+        var _getAllPeople = function () {
 
-            var _addPerson = function (newPersonToAdd) {
+            var deferred = $q.defer();
 
-                var deferred = $q.defer();
+            $http.get(url)
+                .then(function (result) {
+                    // Successful
+                    angular.copy(result.data, _allPeople);
+                    deferred.resolve(result);
+                },
+                    function () {
+                        // Error
+                        deferred.reject();
+                    });
 
-                $http.post(url, newPersonToAdd)
-                    .then(function (result) {
-                        // Successful
-                        //arrayHelper.addItemToArray(_allPeople, result.data);
-                        deferred.resolve(result);
-                    },
-                        function (result) {
-                            // Error
-                            deferred.reject(result);
-                        });
+            return deferred.promise;
+        };
 
-                return deferred.promise;
-            };
+        var _addPerson = function (newPersonToAdd) {
 
-            var _deletePerson = function (personToDelete) {
+            var deferred = $q.defer();
 
-                var deferred = $q.defer();
+            $http.post(url, newPersonToAdd)
+                .then(function (result) {
+                    // Successful
+                    //arrayHelper.addItemToArray(_allPeople, result.data);
+                    deferred.resolve(result);
+                },
+                    function (result) {
+                        // Error
+                        deferred.reject(result);
+                    });
 
-                $http.delete(url + personToDelete.Id)
-                    .then(function (result) {
-                        // Successful
-                        for (var i = _allPeople.length; i--;) {
-                            if (_allPeople[i].Id === personToDelete.Id) {
-                                _allPeople.splice(i, 1);
-                            }
+            return deferred.promise;
+        };
+
+        var _deletePerson = function (personToDelete) {
+
+            var deferred = $q.defer();
+
+            $http.delete(url + personToDelete.Id)
+                .then(function (result) {
+                    // Successful
+                    for (var i = _allPeople.length; i--;) {
+                        if (_allPeople[i].Id === personToDelete.Id) {
+                            _allPeople.splice(i, 1);
                         }
-                        deferred.resolve(result);
-                    },
-                        function () {
-                            // Error
-                            deferred.reject();
-                        });
+                    }
+                    deferred.resolve(result);
+                },
+                    function () {
+                        // Error
+                        deferred.reject();
+                    });
 
-                return deferred.promise;
-            };
+            return deferred.promise;
+        };
 
-            return {
-                getAllPeople: _getAllPeople,
-                addPerson: _addPerson,
-                deletePerson: _deletePerson,
-                allPeople: _allPeople
-            }
-        }
-    ]);
+        return {
+            getAllPeople: _getAllPeople,
+            addPerson: _addPerson,
+            deletePerson: _deletePerson,
+            allPeople: _allPeople
+        };
+    }
 })();

@@ -1,16 +1,24 @@
 ﻿(function () {
-    'use strict';
 
-    var homeModule = angular.module('home.homeModule', ['ngRoute']);
+    "use strict";
 
-    homeModule.config(function ($routeProvider) {
+    var homeModule = angular
+        .module("home.homeModule", ["ngRoute"]);
+
+    homeModule.config(homeconfig);
+
+    homeconfig.$inject = ["$routeProvider"];
+
+    /* @ngInject */
+    function homeconfig($routeProvider) {
         $routeProvider
-            .when("/", {
-                controller: "home.controllers.homeController",
-                controllerAs: "viewModel",
-                templateUrl: "app/Home/Templates/overview.html"
-            })
-            .otherwise({ redirectTo: "/" });
-    });
-
+             .when("/", {
+                 controller: "home.controllers.homeController",
+                 controllerAs: "viewModel",
+                 templateUrl: "app/Home/Templates/homeOverview.html"
+             })
+             .otherwise({
+                 redirectTo: "/"
+             });
+    }
 })();

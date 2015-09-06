@@ -121,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\application.js" />
+    <Content Include="app\Common\commonModule.js" />
     <Content Include="app\Common\Services\ArrayHelpers.js" />
     <Content Include="app\Contact\Controllers\contactController.js" />
     <Content Include="app\Contact\contactModule.js" />
@@ -129,7 +130,7 @@
     <Content Include="app\Home\homeModule.js" />
     <Content Include="app\Home\Services\peopleServices.js" />
     <Content Include="app\Home\Services\signalRService.js" />
-    <Content Include="app\Home\Templates\overview.html" />
+    <Content Include="app\Home\Templates\homeOverview.html" />
     <Content Include="libs\angular-animate\angular-animate.js" />
     <Content Include="libs\angular-animate\angular-animate.min.js" />
     <Content Include="libs\angular-animate\index.js" />
