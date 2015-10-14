@@ -5,12 +5,12 @@
         .module("home.homeModule")
         .factory("home.services.peopleService", peopleService);
 
-    peopleService.$inject = ["$http", "$q", "common.services.arrayHelper"];
+    peopleService.$inject = ["$http", "$q", "appSettings"];
 
     /* @ngInject */
-    function peopleService($http, $q, arrayHelper) {
+    function peopleService($http, $q, appSettings) {
 
-        var url = "api/home/";
+        var url = appSettings.serverPath + "api/home/";
 
         var _allPeople = [];
 
@@ -57,11 +57,9 @@
             $http.delete(url + personToDelete.Id)
                 .then(function (result) {
                     // Successful
-                    for (var i = _allPeople.length; i--;) {
-                        if (_allPeople[i].Id === personToDelete.Id) {
-                            _allPeople.splice(i, 1);
-                        }
-                    }
+                    _.remove(_allPeople, function (person) {
+                        return person.Id === personToDelete.Id;
+                    });
                     deferred.resolve(result);
                 },
                     function () {

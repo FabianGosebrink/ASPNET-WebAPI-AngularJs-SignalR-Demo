@@ -11,15 +11,15 @@
         "angular-loading-bar",
         "toastr",
 
-        "app.common",
         "home.homeModule",
         "contact.contactModule"
     ]).config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
         cfpLoadingBarProvider.includeSpinner = false;
     }])
+        .constant("_", window._)
         .constant("appSettings",
         {
-            serverPath: "http://localhost:63047"
+            serverPath: "http://localhost:63047/"
         });
 
 }());
