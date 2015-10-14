@@ -71,10 +71,13 @@
                     },
                     function (response) {
                         //Error
-                        var errors = [];
-                        for (var key in response.data.ModelState) {
-                            for (var i = 0; i < response.data.ModelState[key].length; i++) {
-                                errors += response.data.ModelState[key][i] + "\r\n";
+                        var errors = "";
+
+                        if (response.data && response.data.ModelState) {
+                            for (var key in response.data.ModelState) {
+                                if (response.data.ModelState.hasOwnProperty(key)) {
+                                    errors += response.data.ModelState[key] + '\r\n';
+                                }
                             }
                         }
                         toastr.error(errors, "Error");
