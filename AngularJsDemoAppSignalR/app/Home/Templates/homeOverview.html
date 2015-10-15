@@ -1,4 +1,4 @@
-﻿<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+﻿<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -16,90 +16,100 @@
             </ul>
         </div><!--/.nav-collapse -->
     </div>
-</div>
+</nav>
 
-<div class="container">
-    <toaster-container> </toaster-container>
-    <div class="starter-template">
-        <div class="jumbotron">
-
-            <div class="row">
-
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="{{viewModel.cpuUsage}}" aria-valuemin="0" aria-valuemax="100"
-                         ng-style="{width : ( viewModel.cpuUsage + '%' ) }">
-                        {{viewModel.cpuUsage}}%
-                    </div>
-                </div>
-
-                <div class="col-md-12">
-                    <form class="form-inline" data-ng-submit="viewModel.addPerson()" name="newPersonForm">
-                        <div class="form-group">
-                            <label class="sr-only" for="name">Name</label>
-                            <input type="text" class="form-control"
-                                   id="name" name="name" placeholder="Enter name"
-                                   data-ng-model="viewModel.newPerson.Name" data-ng-minlength="2" required>
-                            <span class="error" data-ng-show="newPersonForm.name.$error.required">*</span>
-                            <span class="error" data-ng-show="newPersonForm.name.$error.minlength"><br />Minimum 2 Characters</span>
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="age">Age</label>
-                            <input type="number" class="form-control" id="age" name="age" placeholder="Enter age" data-ng-model="viewModel.newPerson.Age" required>
-                            <span class="error" data-ng-show="newPersonForm.age.$error.required">*</span>
-                            <span class="error" data-ng-show="newPersonForm.age.$error.number">Not a valid number</span>
-                        </div>
-
-                        <button type="submit" class="btn btn-default" data-ng-disabled="newPersonForm.$invalid">Add person</button>
-                    </form>
-                </div>
-            </div>
-            <br />
-            <span>
-                <label>Person to add will be: <i>{{viewModel.newPerson.Name}}</i> with an age of <i>{{viewModel.newPerson.Age}}</i></label>
-            </span>
-            <br />
-            <table class="table table-striped resultArea" ng-cloak>
-                <tr>
-                    <th>
-                        Name
-                    </th>
-                    <th class="text-right">
-                        Age
-                    </th>
-                    <th class="text-right">
-                        Actions
-                    </th>
-                </tr>
-                <tr data-ng-repeat="person in viewModel.peopleService.allPeople">
-                    <td class="text-left">
-                        {{person.Name}}
-                    </td>
-                    <td class="text-right">
-                        {{person.Age}}
-                    </td>
-                    <td class="text-right">
-                        <button data-ng-click="viewModel.deletePerson(person)" class="btn btn-primary btn-xs">Delete</button>
-                    </td>
-                </tr>
-
-            </table>
-
-            <div class="row text-left">
-                <div class="col-md-12">
-                    <form class="form-inline" name="newChatForm">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Chat with me!" data-ng-model="viewModel.messageText" data-ng-minlength="1">
-                            <button class="btn btn-default" data-ng-disabled="newChatForm.$invalid" data-ng-click="viewModel.sendChat()">Send</button>
-                            <br />
-                            <br />
-                            <ul>
-                                <li ng-repeat="message in viewModel.chatMessages track by $index">{{ message }}</li>
-                            </ul>
-                        </div>
-                    </form>
-                </div>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <p>
+            <label>Prozessor</label>
+        </p>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{viewModel.cpuUsage}}" aria-valuemin="0" aria-valuemax="100"
+                 ng-style="{width : ( viewModel.cpuUsage + '%' ) }">
+                {{viewModel.cpuUsage}}%
             </div>
         </div>
     </div>
+</div>
 
-</div><!-- /.container -->
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-8">
+            <p>
+                <form class="form-inline" data-ng-submit="viewModel.addPerson()" name="newPersonForm">
+                    <div class="form-group">
+                        <label class="sr-only" for="name">Name</label>
+                        <input type="text" class="form-control"
+                               id="name" name="name" placeholder="Enter name"
+                               data-ng-model="viewModel.newPerson.Name" data-ng-minlength="2" required>
+                        <span class="error" data-ng-show="newPersonForm.name.$error.required">*</span>
+                        <span class="error" data-ng-show="newPersonForm.name.$error.minlength"><br />Minimum 2 Characters</span>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="age">Age</label>
+                        <input type="number" class="form-control" id="age" name="age" placeholder="Enter age" data-ng-model="viewModel.newPerson.Age" required>
+                        <span class="error" data-ng-show="newPersonForm.age.$error.required">*</span>
+                        <span class="error" data-ng-show="newPersonForm.age.$error.number">Not a valid number</span>
+                    </div>
+
+                    <button type="submit" class="btn btn-default" data-ng-disabled="newPersonForm.$invalid">Add person</button>
+                </form>
+            </p>
+            <p><label>Person to add will be: <i>{{viewModel.newPerson.Name}}</i> with an age of <i>{{viewModel.newPerson.Age}}</i></label></p>
+            <p>
+                <div class="table-responsive">
+                    <table class="table table-striped" ng-cloak>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th class="text-right">
+                                Age
+                            </th>
+                            <th class="text-right">
+                                Actions
+                            </th>
+                        </tr>
+                        <tr data-ng-repeat="person in viewModel.peopleService.allPeople">
+                            <td class="text-left">
+                                {{person.Name}}
+                            </td>
+                            <td class="text-right">
+                                {{person.Age}}
+                            </td>
+                            <td class="text-right">
+                                <button data-ng-click="viewModel.deletePerson(person)" class="btn btn-primary btn-xs">Delete</button>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </p>
+
+            <form class="form-inline" name="newChatForm">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Chat with me!" data-ng-model="viewModel.messageText" data-ng-minlength="1">
+                    <button class="btn btn-default" data-ng-disabled="newChatForm.$invalid" data-ng-click="viewModel.sendChat()">Send</button>
+                    <br />
+                    <br />
+                    <ul>
+                        <li ng-repeat="message in viewModel.chatMessages track by $index">{{ message }}</li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <p>&copy; Offering.Solutions</p>
+    </footer>
+</div> <!-- /container -->

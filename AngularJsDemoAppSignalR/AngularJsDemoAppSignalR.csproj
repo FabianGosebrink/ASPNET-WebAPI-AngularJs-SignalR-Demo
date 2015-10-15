@@ -420,6 +420,33 @@
     <Content Include="libs\lodash\.bower.json" />
     <Content Include="libs\lodash\bower.json" />
     <Content Include="libs\lodash\LICENSE" />
+    <Content Include="libs\angular-toastr\dist\angular-toastr.tpls.min.js.map">
+      <DependentUpon>angular-toastr.tpls.min.js</DependentUpon>
+    </Content>
+    <Content Include="libs\angular-toastr\dist\angular-toastr.min.js.map">
+      <DependentUpon>angular-toastr.min.js</DependentUpon>
+    </Content>
+    <Content Include="libs\signalr\jquery.signalR.min.js.map">
+      <DependentUpon>jquery.signalR.min.js</DependentUpon>
+    </Content>
+    <Content Include="libs\angular-bootstrap\ui-bootstrap-tpls.min.js.map">
+      <DependentUpon>ui-bootstrap-tpls.min.js</DependentUpon>
+    </Content>
+    <Content Include="libs\jquery\src\sizzle\dist\sizzle.min.js.map">
+      <DependentUpon>sizzle.min.js</DependentUpon>
+    </Content>
+    <Content Include="libs\angular-bootstrap\ui-bootstrap.min.js.map">
+      <DependentUpon>ui-bootstrap.min.js</DependentUpon>
+    </Content>
+    <Content Include="libs\jquery\dist\jquery.min.js.map">
+      <DependentUpon>jquery.min.js</DependentUpon>
+    </Content>
+    <Content Include="libs\bootstrap\dist\js\bootstrap.min.js.map">
+      <DependentUpon>bootstrap.min.js</DependentUpon>
+    </Content>
+    <Content Include="libs\lodash\lodash.min.js.map">
+      <DependentUpon>lodash.min.js</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
