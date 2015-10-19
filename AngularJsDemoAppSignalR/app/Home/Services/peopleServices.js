@@ -10,7 +10,7 @@
     /* @ngInject */
     function peopleService($http, $q, appSettings) {
 
-        var url = appSettings.serverPath + "api/home/";
+        var url = appSettings.serverPath + "api/person/";
 
         var _allPeople = [];
 

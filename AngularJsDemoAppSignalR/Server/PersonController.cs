@@ -1,22 +1,22 @@
-﻿using System;
+﻿using AngularJsDemoAppSignalR.Server.Models;
+using AngularJsDemoAppSignalR.Server.Services;
+using Microsoft.AspNet.SignalR;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Web.Http;
-using AngularJsDemoAppSignalR.Server.Models;
-using AngularJsDemoAppSignalR.Server.Services;
-using Microsoft.AspNet.SignalR;
 
 namespace AngularJsDemoAppSignalR.Server
 {
-    [RoutePrefix("api/home")]
-    public class HomeController : ApiController
+    [RoutePrefix("api/person")]
+    public class PersonController : ApiController
     {
         private readonly PerformanceCounter _cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
         readonly IHubContext _hubContext;
 
-        public HomeController()
+        public PersonController()
         {
             _hubContext = GlobalHost.ConnectionManager.GetHubContext<MyHub>();
 
@@ -38,7 +38,7 @@ namespace AngularJsDemoAppSignalR.Server
             {
                 return NotFound();
             }
-            
+
             return Ok(person);
         }
 
