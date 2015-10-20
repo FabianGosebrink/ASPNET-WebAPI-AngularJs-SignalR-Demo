@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http.Formatting;
-using System.Threading.Tasks;
-using System.Web.Http;
-using AngularJsDemoAppSignalR.Server.Models;
+﻿using AngularJsDemoAppSignalR.Server.Models;
 using AngularJsDemoAppSignalR.Server.Services;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Owin;
+using System.Collections.Generic;
+using System.Net.Http.Formatting;
+using System.Web.Http;
 
 [assembly: OwinStartup(typeof(AngularJsDemoAppSignalR.Server.Startup))]
 
@@ -31,6 +30,7 @@ namespace AngularJsDemoAppSignalR.Server
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            app.UseCors(CorsOptions.AllowAll);
             app.UseWebApi(config);
             app.MapSignalR();
 
