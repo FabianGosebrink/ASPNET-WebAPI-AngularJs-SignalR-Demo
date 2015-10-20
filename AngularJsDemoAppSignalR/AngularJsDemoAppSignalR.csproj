@@ -447,6 +447,7 @@
     <Content Include="libs\lodash\lodash.min.js.map">
       <DependentUpon>lodash.min.js</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\OfferingSolutionsSignalRExample.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

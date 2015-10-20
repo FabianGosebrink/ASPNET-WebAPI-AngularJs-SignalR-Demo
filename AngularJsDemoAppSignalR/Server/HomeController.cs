@@ -13,7 +13,8 @@ namespace AngularJsDemoAppSignalR.Server
     [RoutePrefix("api/home")]
     public class HomeController : ApiController
     {
-        private readonly PerformanceCounter _cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+        //private readonly PerformanceCounter _cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");
+        Random _random = new Random();
         readonly IHubContext _hubContext;
 
         public HomeController()
@@ -25,7 +26,15 @@ namespace AngularJsDemoAppSignalR.Server
 
         public IHttpActionResult Get()
         {
-            return Ok(Singleton.Instance.Persons);
+            try
+            {
+                return Ok(Singleton.Instance.Persons);
+            }
+            catch (Exception exception)
+            {
+                return InternalServerError(exception);
+            }
+            
         }
 
         [HttpGet]
@@ -97,8 +106,10 @@ namespace AngularJsDemoAppSignalR.Server
 
         private void OnTimerElapsed(object sender)
         {
-            var cpuValue = _cpuCounter.NextValue();
-            _hubContext.Clients.All.newCpuValue(Math.Round(cpuValue, 2));
+            //var cpuValue = _cpuCounter.NextValue();
+            var cpuValue = _random.Next(0, 100);
+            //_hubContext.Clients.All.newCpuValue(Math.Round(cpuValue, 2));
+            _hubContext.Clients.All.newCpuValue(cpuValue);
         }
     }
 }

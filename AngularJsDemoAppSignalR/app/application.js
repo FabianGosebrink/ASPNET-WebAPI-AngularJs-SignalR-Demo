@@ -19,7 +19,8 @@
         .constant("_", window._)
         .constant("appSettings",
         {
-            serverPath: "http://localhost:63047/"
+            //serverPath: "http://localhost:63047/"
+            serverPath: "http://offeringsolutionssignalrexample.azurewebsites.net/"
         });
 
 }());
