@@ -30,6 +30,7 @@ namespace AngularJsDemoAppSignalR.Server
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.EnableCors();
             app.UseCors(CorsOptions.AllowAll);
             app.UseWebApi(config);
             app.MapSignalR();
