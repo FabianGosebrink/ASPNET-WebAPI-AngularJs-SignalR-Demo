@@ -30,10 +30,16 @@ namespace AngularJsDemoAppSignalR.Server
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            app.Map("/signalr", map =>
+            {
+                map.UseCors(CorsOptions.AllowAll);
+                map.RunSignalR();
+            });
+
             config.EnableCors();
             app.UseCors(CorsOptions.AllowAll);
             app.UseWebApi(config);
-            app.MapSignalR();
+            //app.MapSignalR();
 
             //ADD DUMMY DATA
             IList<Person> persons = new List<Person>();
