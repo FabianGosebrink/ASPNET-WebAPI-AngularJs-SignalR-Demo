@@ -6,6 +6,8 @@ As promised here is my Sample-Application. Note that this is just a sample! NEVE
 
 This was just made for demo purposes. AND it contains SignalR :-)
 
+![Screen](_gitAssets/screen.png)
+
 Regards & HTH
 
 Fabian
