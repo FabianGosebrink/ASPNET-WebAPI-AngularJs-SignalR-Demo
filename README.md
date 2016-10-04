@@ -1,4 +1,5 @@
-# AngularJsDemoAppWithSignalR
+# AngularJs SignalR Demo
+
 Application for AngularJS with SignalR included
 
 As promised here is my Sample-Application. Note that this is just a sample! NEVER use a Singleton to replace a database in a business-application.
